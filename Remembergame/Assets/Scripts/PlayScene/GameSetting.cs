@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class GameSetting : MonoBehaviour
 {
     public csvReader csv;
+    public static Dictionary<string, GameObject> cards = new Dictionary<string, GameObject>();
     //S는 스페이드 A는 숫자(H = 하트, D = 다이아, C = 클로버)
     #region 카드 오브젝트 선언
     public GameObject SA;
@@ -74,11 +75,67 @@ public class GameSetting : MonoBehaviour
     #endregion
     public GameObject stagenum;
     public GameObject timenum;
+    public static int cardnum;
     void Start()
     {
+        #region 딕셔너리넣기
+        cards.Add("S1", SA);
+        cards.Add("S2", S2);
+        cards.Add("S3", S3);
+        cards.Add("S4", S4);
+        cards.Add("S5", S5);
+        cards.Add("S6", S6);
+        cards.Add("S7", S7);
+        cards.Add("S8", S8);
+        cards.Add("S9", S9);
+        cards.Add("S10", S10);
+        cards.Add("S11", SJ);
+        cards.Add("S12", SQ);
+        cards.Add("S13", SK);
+        cards.Add("D1", DA);
+        cards.Add("D2", D2);
+        cards.Add("D3", D3);
+        cards.Add("D4", D4);
+        cards.Add("D5", D5);
+        cards.Add("D6", D6);
+        cards.Add("D7", D7);
+        cards.Add("D8", D8);
+        cards.Add("D9", D9);
+        cards.Add("D10", D10);
+        cards.Add("D11", DJ);
+        cards.Add("D12", DQ);
+        cards.Add("D13", DK);
+        cards.Add("H1", HA);
+        cards.Add("H2", H2);
+        cards.Add("H3", H3);
+        cards.Add("H4", H4);
+        cards.Add("H5", H5);
+        cards.Add("H6", H6);
+        cards.Add("H7", H7);
+        cards.Add("H8", H8);
+        cards.Add("H9", H9);
+        cards.Add("H10", H10);
+        cards.Add("H11", HJ);
+        cards.Add("H12", HQ);
+        cards.Add("H13", HK); 
+        cards.Add("C1", CA);
+        cards.Add("C2", C2);
+        cards.Add("C3", C3);
+        cards.Add("C4", C4);
+        cards.Add("C5", C5);
+        cards.Add("C6", C6);
+        cards.Add("C7", C7);
+        cards.Add("C8", C8);
+        cards.Add("C9", C9);
+        cards.Add("C10", C10);
+        cards.Add("C11", CJ);
+        cards.Add("C12", CQ);
+        cards.Add("C13", CK);
+        #endregion
         nowScore = 0;
         nowStage = 1;
         nowTime = csv.setting[nowStage - 1].time;
+        cardnum = (csv.setting[nowStage-1].ver * csv.setting[nowStage - 1].hor)/2;
         StartCoroutine(Timer());
     }
     private void Update()

@@ -4,14 +4,36 @@ using UnityEngine;
 
 public class ClickCard : MonoBehaviour
 {
-    void Start()
-    {
-        
-    }
+    Animator cardflip;
 
-    // Update is called once per frame
+    private void Start()
+    {
+        cardflip = GetComponent<Animator>();
+        cardflip.SetBool("CardFlip", false);
+        //Debug.Log(cardflip);
+    }
     void Update()
     {
-        
+        if (Input.GetMouseButtonDown(0))
+        {
+            RaycastHit hit;
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            Physics.Raycast(ray, out hit);
+
+            if (hit.collider != null)
+            {
+                //Debug.Log("hit");
+                if (!cardflip.GetBool("CardFlip"))
+                {
+                    cardflip.SetBool("CardFlip", true);
+                    //Debug.Log("false");
+                }
+                else if (cardflip.GetBool("CardFlip"))
+                {
+                    cardflip.SetBool("CardFlip", false);
+                    //Debug.Log("false");
+                }
+            }
+        }
     }
 }
