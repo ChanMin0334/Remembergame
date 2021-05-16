@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 public class MainBtnsManager : MonoBehaviour
 {
     public MainSoundSrc Ms;
+    public GameObject RankingUI;
     public void clickplaybtn()
     {
         Ms.startsound.Play();
@@ -14,6 +15,7 @@ public class MainBtnsManager : MonoBehaviour
     public void clickranking()
     {
         Ms.clicksound.Play();
+        RankingUI.SetActive(!RankingUI.activeSelf);
     }
 
     IEnumerator goplay()

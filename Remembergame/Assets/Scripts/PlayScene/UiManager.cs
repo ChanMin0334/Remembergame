@@ -19,8 +19,14 @@ public class UiManager : MonoBehaviour
         scorenum2.GetComponent<Text>().text = GameSetting.nowScore.ToString();
         if(GameSetting.nowTime <= 0)
         {
-            if(ClearUI.activeSelf != true)
-                OverUI.SetActive(true);
+            if (ClearUI.activeSelf != true)
+            {
+                if (OverUI.activeSelf != true)
+                {
+                    OverUI.SetActive(true);
+                    CardSetting.parents.GetComponent<AudioManager>().GameOversound.Play();
+                }
+            }
         }
     }
     public static IEnumerator Timer()

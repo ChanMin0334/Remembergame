@@ -10,7 +10,14 @@ public class Clearcheck : MonoBehaviour
     public UiManager u;
     public void Clear()
     {
-        u.ClearUI.SetActive(true);
-        StopCoroutine(cardsetting.timer);
+        if (GameSetting.nowStage + 1 <= 3)
+        {
+            u.ClearUI.SetActive(true);
+            StopCoroutine(cardsetting.timer);
+        }
+        else
+        {
+            u.OverUI.SetActive(true);
+        }
     }
 }

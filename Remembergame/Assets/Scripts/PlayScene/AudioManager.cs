@@ -7,4 +7,5 @@ public class AudioManager : MonoBehaviour
     public AudioSource Flipsound;
     public AudioSource btnsound;
     public AudioSource Matchedsound;
+    public AudioSource GameOversound;
 }
