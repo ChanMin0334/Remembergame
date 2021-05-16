@@ -6,9 +6,11 @@ public class Clearcheck : MonoBehaviour
 {
     public csvReader csv;
     public GameSetting setting;
+    public CardSetting cardsetting;
+    public UiManager u;
     public void Clear()
     {
-        GameSetting.nowStage += 1;
-        GameSetting.nowTime = csv.setting[GameSetting.nowStage - 1].time;
+        u.ClearUI.SetActive(true);
+        StopAllCoroutines();
     }
 }

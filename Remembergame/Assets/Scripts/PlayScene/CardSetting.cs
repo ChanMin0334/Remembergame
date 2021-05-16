@@ -7,16 +7,24 @@ public class CardSetting : MonoBehaviour
     public GameSetting g;
     public static List<string> usedCards = new List<string>();
     public GameObject cardspace;
+    public static GameObject parents;
     public csvReader csv;
+    public static GameObject firstcard;
+    public static GameObject secondcard;
 
     void Start()
     {
+        parents = cardspace;
         GameSetting.nowScore = 0;
-        GameSetting.nowStage = 3;
+        GameSetting.nowStage = 1;
+        StartCoroutine(UiManager.Timer());
+        stage();
+    }
+    public void stage()
+    {
         GameSetting.nowTime = csv.setting[GameSetting.nowStage - 1].time;
         GameSetting.cardnum = (csv.setting[GameSetting.nowStage - 1].ver * csv.setting[GameSetting.nowStage - 1].hor) / 2;
         Debug.Log(GameSetting.cardnum);
-        StartCoroutine(UiManager.Timer());
         MakeCardList();
     }
     void MakeCardList()
@@ -24,16 +32,17 @@ public class CardSetting : MonoBehaviour
         string cardname;
         char[] cardtype = { 'S', 'D', 'H', 'C' };  //스페이드 다이아 하트 클로버
         //Debug.Log(usedCards.Count);
-        while (GameSetting.cardnum > 0)
+        int cardtemp = GameSetting.cardnum;
+        while (cardtemp > 0)
         {
             cardname = "";
             cardname += cardtype[Random.Range(0, 4)];
             cardname += Random.Range(1, 14);
-            Debug.Log(cardname);
+            //Debug.Log(cardname);
             if (!usedCards.Contains(cardname))
             {
                 usedCards.Add(cardname);
-                GameSetting.cardnum--;
+                cardtemp--;
             }
             else
             {
@@ -44,7 +53,7 @@ public class CardSetting : MonoBehaviour
         for (int i = 0; i < Ccount; i++)
         {
             usedCards.Add(usedCards[i]);
-            Debug.Log("||" + usedCards[i] + "||");
+           // Debug.Log("||" + usedCards[i] + "||");
         }
         SetCards();
     }
@@ -115,5 +124,17 @@ public class CardSetting : MonoBehaviour
             }
         }
 
+    }
+    public void destroycard()
+    {
+        Transform[] childList = GetComponentsInChildren<Transform>(true);
+        if (childList != null)
+        {
+            for (int i = 0; i < childList.Length; i++)
+            {
+                if (childList[i] != transform)
+                    Destroy(childList[i].gameObject);
+            }
+        }
     }
 }

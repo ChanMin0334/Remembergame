@@ -26,9 +26,5 @@ public class csvReader : MonoBehaviour
 
             setting.Add(g);
         }
-
-        /*Debug.Log(setting[GameSetting.nowStage-1].stage + "/" + setting[GameSetting.nowStage - 1].getscore + "/" + 
-            setting[GameSetting.nowStage - 1].losescore + "/" + setting[GameSetting.nowStage - 1].ver + "/" + 
-            setting[GameSetting.nowStage - 1].hor + "/" + setting[GameSetting.nowStage - 1].time);*/
     }
 }
