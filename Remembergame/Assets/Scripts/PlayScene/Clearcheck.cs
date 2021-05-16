@@ -11,6 +11,6 @@ public class Clearcheck : MonoBehaviour
     public void Clear()
     {
         u.ClearUI.SetActive(true);
-        StopAllCoroutines();
+        StopCoroutine(cardsetting.timer);
     }
 }

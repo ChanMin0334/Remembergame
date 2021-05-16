@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class ClickCard : MonoBehaviour
 {
@@ -20,40 +21,44 @@ public class ClickCard : MonoBehaviour
     }
     void Update()
     {
+
         if (Input.GetMouseButtonDown(0))
         {
-            RaycastHit hit;
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            Physics.Raycast(ray, out hit);
-            if (hit.collider != null)
+            if (!EventSystem.current.IsPointerOverGameObject())
             {
-                if (hit.collider.gameObject == this.gameObject)
+                RaycastHit hit;
+                Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+                Physics.Raycast(ray, out hit);
+                if (hit.collider != null)
                 {
-                    if (!cardflip.GetBool("CardFlip"))
-                    { 
-                        if (CardSetting.firstcard == null)
-                        {
-                            CardSetting.firstcard = thisoj;
-                            cardflip.SetBool("CardFlip", true);
-                        }
-                        else if (CardSetting.secondcard == null)
-                        {
-                            CardSetting.secondcard = thisoj;
-                            cardflip.SetBool("CardFlip", true);
-                            if (CardSetting.firstcard.name == CardSetting.secondcard.name)
-                            {
-                                StartCoroutine("cardmatched");
-                            }
-                            else
-                            {
-                                StartCoroutine("resetcard");
-                            }
-                        }
-
-                    }
-                    else if (cardflip.GetBool("CardFlip"))
+                    if (hit.collider.gameObject == this.gameObject)
                     {
+                        if (!cardflip.GetBool("CardFlip"))
+                        {
+                            if (CardSetting.firstcard == null)
+                            {
+                                CardSetting.firstcard = thisoj;
+                                cardflip.SetBool("CardFlip", true);
+                            }
+                            else if (CardSetting.secondcard == null)
+                            {
+                                CardSetting.secondcard = thisoj;
+                                cardflip.SetBool("CardFlip", true);
+                                if (CardSetting.firstcard.name == CardSetting.secondcard.name)
+                                {
+                                    StartCoroutine("cardmatched");
+                                }
+                                else
+                                {
+                                    StartCoroutine("resetcard");
+                                }
+                            }
 
+                        }
+                        else if (cardflip.GetBool("CardFlip"))
+                        {
+
+                        }
                     }
                 }
             }
@@ -82,7 +87,7 @@ public class ClickCard : MonoBehaviour
     }
     IEnumerator clearactivity()
     {
-        yield return new WaitForSecondsRealtime(1.5f);
+        yield return new WaitForSecondsRealtime(0.5f);
         c.Clear();
     }
 }

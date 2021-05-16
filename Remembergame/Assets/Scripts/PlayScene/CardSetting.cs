@@ -11,13 +11,13 @@ public class CardSetting : MonoBehaviour
     public csvReader csv;
     public static GameObject firstcard;
     public static GameObject secondcard;
+    public Coroutine timer;
 
     void Start()
     {
         parents = cardspace;
         GameSetting.nowScore = 0;
         GameSetting.nowStage = 1;
-        StartCoroutine(UiManager.Timer());
         stage();
     }
     public void stage()
@@ -25,6 +25,7 @@ public class CardSetting : MonoBehaviour
         GameSetting.nowTime = csv.setting[GameSetting.nowStage - 1].time;
         GameSetting.cardnum = (csv.setting[GameSetting.nowStage - 1].ver * csv.setting[GameSetting.nowStage - 1].hor) / 2;
         Debug.Log(GameSetting.cardnum);
+        timer = StartCoroutine(UiManager.Timer());
         MakeCardList();
     }
     void MakeCardList()
