@@ -5,35 +5,32 @@ using UnityEngine;
 public class ClickCard : MonoBehaviour
 {
     Animator cardflip;
-
     private void Start()
     {
         cardflip = GetComponent<Animator>();
-        cardflip.SetBool("CardFlip", false);
+        this.cardflip.SetBool("CardFlip", false);
         //Debug.Log(cardflip);
     }
     void Update()
-    {
+    {  
         if (Input.GetMouseButtonDown(0))
         {
             RaycastHit hit;
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             Physics.Raycast(ray, out hit);
-
             if (hit.collider != null)
             {
-                //Debug.Log("hit");
-                if (!cardflip.GetBool("CardFlip"))
+                if (hit.collider.gameObject == this.gameObject)
                 {
-                    cardflip.SetBool("CardFlip", true);
-                    //Debug.Log("false");
+                    if (!cardflip.GetBool("CardFlip"))
+                    {
+                        cardflip.SetBool("CardFlip", true);
+                    }
+                    else if (cardflip.GetBool("CardFlip"))
+                    {
+                    }
                 }
-                else if (cardflip.GetBool("CardFlip"))
-                {
-                    cardflip.SetBool("CardFlip", false);
-                    //Debug.Log("false");
-                }
-            }
+            }      
         }
     }
 }
