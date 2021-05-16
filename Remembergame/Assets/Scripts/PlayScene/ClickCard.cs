@@ -39,11 +39,13 @@ public class ClickCard : MonoBehaviour
                             {
                                 CardSetting.firstcard = thisoj;
                                 cardflip.SetBool("CardFlip", true);
+                                CardSetting.parents.GetComponent<AudioManager>(). Flipsound.Play();
                             }
                             else if (CardSetting.secondcard == null)
                             {
                                 CardSetting.secondcard = thisoj;
                                 cardflip.SetBool("CardFlip", true);
+                                CardSetting.parents.GetComponent<AudioManager>().Flipsound.Play();
                                 if (CardSetting.firstcard.name == CardSetting.secondcard.name)
                                 {
                                     StartCoroutine("cardmatched");
@@ -72,22 +74,20 @@ public class ClickCard : MonoBehaviour
         GameSetting.nowScore -= csv.setting[GameSetting.nowStage - 1].losescore;
         CardSetting.firstcard = null;
         CardSetting.secondcard = null;
+        CardSetting.parents.GetComponent<AudioManager>().Flipsound.Play();
     }
     IEnumerator cardmatched()
     {
-        yield return new WaitForSecondsRealtime(1.0f);
         CardSetting.firstcard = null;
         CardSetting.secondcard = null;
         GameSetting.nowScore += csv.setting[GameSetting.nowStage - 1].getscore;
         GameSetting.cardnum--;
-        if(GameSetting.cardnum == 0)
+        if (GameSetting.cardnum == 0)
         {
-            StartCoroutine("clearactivity");
+            c.Clear();
         }
-    }
-    IEnumerator clearactivity()
-    {
-        yield return new WaitForSecondsRealtime(0.5f);
-        c.Clear();
+        yield return new WaitForSecondsRealtime(0.2f);
+        CardSetting.parents.GetComponent<AudioManager>().Matchedsound.Play();
+        yield return new WaitForSecondsRealtime(1.0f);
     }
 }
